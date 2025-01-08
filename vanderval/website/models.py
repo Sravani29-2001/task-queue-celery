@@ -33,3 +33,13 @@ class UserRecords(models.Model):
     pincode = models.CharField(max_length=10)
     dob = models.DateField
     is_active = models.BooleanField(default=True)  # do not count for active records if false
+class Job(models.Model):
+    site = models.ForeignKey('Site', on_delete=models.CASCADE)  # Assuming Site is already defined
+    task_id = models.CharField(max_length=255)
+    job_type = models.CharField(max_length=50)
+    status = models.CharField(max_length=50, default='PENDING')
+    result = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Job {self.job_type} for Site {self.site.name}'

@@ -25,7 +25,7 @@ SECRET_KEY = "9bf)g-hct6!eavgm)$xd3+-2gpdfs4$e=(z@ar%-r)t-6(@uv3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "website",
+    'rest_framework',
+    'rest_framework.authtoken',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "vanderval.urls"
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 TEMPLATES = [
     {
@@ -119,3 +133,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+broker_url = 'redis://localhost:6379/0'  # Make sure this is Redis, not RabbitMQ
+
+
+
+accept_content = ['application/json']
+
+
+result_serializer = 'json'
+
+
+task_serializer = 'json'
+
+timezone = 'Asia/Kolkata'
